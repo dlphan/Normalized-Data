@@ -39,16 +39,19 @@ def normalization(data):
 
 	if (method in ['min-max', 'z-score']):
 		for value in lines[0]:
-			if value.isnumeric():
-				column = lines[0].index(value)
-				columnSelected = list(map(lambda line: float(line[column]), lines))
-				changeValues(method, column, lines, columnSelected)
+			try:
+				if isinstance(float(value), float):
+					column = lines[0].index(value)
+					columnSelected = list(map(lambda line: float(line[column]), lines))
+					changeValues(method, column, lines, columnSelected)
+			except:
+				print
 	else:
 		print('The normalize method must be "min-max" or "z-score".\nPlease run the program again!')
 		return
 
 def main():
-	fInput = open('./data/bank.txt', 'r')
+	fInput = open('./data/data.txt', 'r')
 	data = [line.rstrip('\n').split(',') for line in fInput]
 	fInput.close()
 
