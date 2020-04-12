@@ -10,7 +10,7 @@ def minMaxMethod(column, lines, columnSelected):
 
 	for line in lines:
 		v = float(line[column])
-		line[column] = str(((v - MIN)/(MAX - MIN))*(NEW_MAX - NEW_MIN) + NEW_MIN)
+		line[column] = str(round(((v - MIN)/(MAX - MIN))*(NEW_MAX - NEW_MIN) + NEW_MIN, 2))
 
 # Z-score method
 def zScoreMethod(column, lines, columnSelected):
@@ -21,7 +21,7 @@ def zScoreMethod(column, lines, columnSelected):
 
 	for line in lines:
 		v = float(line[column])
-		line[column] = str((v - AVERAGE)/STANDARD_DEVIATION)
+		line[column] = str(round((v - AVERAGE)/STANDARD_DEVIATION, 2))
 
 # Change the value of the attributes
 def changeValues(method, column, lines, columnSelected):
