@@ -1,0 +1,2 @@
+The attributes are normalized: [age, balance, day, duration, campaign, pdays, previous]
+Range: [0,1]

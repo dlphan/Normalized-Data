@@ -1,12 +1,12 @@
 import math
 
+NEW_MIN = 0
+NEW_MAX = 1
+
 # Min-max method
 def minMaxMethod(column, lines, columnSelected):
 	MIN = min(columnSelected)
 	MAX = max(columnSelected)
-
-	NEW_MIN = 0
-	NEW_MAX = 1
 
 	for line in lines:
 		v = float(line[column])
@@ -31,8 +31,7 @@ def changeValues(method, column, lines, columnSelected):
 		zScoreMethod(column, lines, columnSelected)
 
 # Normalization
-def normalization(data):
-	attributes = data[0]
+def normalization(data, attributesChanged):
 	lines = data[1:]
 	method = input('Enter the normalize method (type: [min-max, z-score]: ')
 	index = 0
@@ -41,6 +40,7 @@ def normalization(data):
 		for value in lines[0]:
 			try:
 				if isinstance(float(value), float):
+					attributesChanged.append(data[0][index])
 					columnSelected = list(map(lambda line: float(line[index]), lines))
 					changeValues(method, index, lines, columnSelected)
 			except:
@@ -51,15 +51,22 @@ def normalization(data):
 		return
 
 def main():
+	attributesChanged = []
+
 	fInput = open('./data/bank.txt', 'r')
 	data = [line.rstrip('\n').split(',') for line in fInput]
 	fInput.close()
 
-	normalization(data)
+	normalization(data, attributesChanged)
 
 	fOutput = open('./data/data_output.txt', 'w+')
 	dataOutput = '\n'.join(map(lambda line: ','.join(line), data))
 	fOutput.write(dataOutput)
 	fOutput.close()
+
+	fLog = open('./data/data_log.txt', 'w+')
+	dataLog = 'The attributes are normalized: [' + ', '.join(attributesChanged) + ']\nRange: [' + str(NEW_MIN) + ',' + str(NEW_MAX) + ']'
+	fLog.write(dataLog)
+	fLog.close()
 
 main()
