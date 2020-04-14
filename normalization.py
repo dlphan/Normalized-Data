@@ -25,7 +25,6 @@ def zScoreMethod(column, lines, columnSelected):
 
 # Change the value of the attributes
 def changeValues(method, column, lines, columnSelected):
-	print('1: ',column)
 	if method == 'min-max':
 		minMaxMethod(column, lines, columnSelected)
 	elif method == 'z-score':
@@ -42,7 +41,6 @@ def normalization(data):
 		for value in lines[0]:
 			try:
 				if isinstance(float(value), float):
-					print(index)
 					columnSelected = list(map(lambda line: float(line[index]), lines))
 					changeValues(method, index, lines, columnSelected)
 			except:
@@ -53,7 +51,7 @@ def normalization(data):
 		return
 
 def main():
-	fInput = open('./data/google_review_ratings.txt', 'r')
+	fInput = open('./data/bank.txt', 'r')
 	data = [line.rstrip('\n').split(',') for line in fInput]
 	fInput.close()
 
